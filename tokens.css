@@ -1,0 +1,201 @@
+/* ============================================================
+   Typely — design tokens
+   Single source of truth. :root declarations only (+ theme /
+   direction overrides). No component styles here.
+   Convention follows apps/bac2026/tokens.css (:root tokens,
+   oklch colours, 4pt spacing scale).
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ---- Colour (light, oklch) ---- */
+  --color-paper:        oklch(99%   0.004  95);  /* page canvas */
+  --color-paper-2:      oklch(96%   0.006  95);  /* raised surface */
+  --color-paper-3:      oklch(92%   0.008  95);  /* sunk / hover surface */
+  --color-ink:          oklch(24%   0.015  70);  /* primary text */
+  --color-ink-2:        oklch(42%   0.015  70);  /* secondary text */
+  --color-muted:        oklch(55%   0.014  70);  /* de-emphasised text */
+  --color-rule:         oklch(88%   0.008  95);  /* hairline */
+  --color-rule-2:       oklch(78%   0.010  95);  /* visible border */
+
+  --color-accent:       oklch(62%   0.18  55);  /* brand / links / caret (ember orange) */
+  --color-accent-hover: oklch(66%   0.18  55);  /* primary hover */
+  --color-accent-pressed: oklch(57% 0.18  55);  /* primary active */
+  --color-accent-ink:   oklch(99%   0.004  95);  /* text on accent */
+  --color-accent-soft:  oklch(93%   0.05  55);  /* tinted fill */
+
+  --color-ok:           oklch(60%   0.15  155);  /* race "you" bar / badges */
+  --color-ok-soft:      oklch(93%   0.04  155);
+  --color-err:          oklch(58%   0.19   25);  /* incorrect chars */
+  --color-err-soft:     oklch(93%   0.04   25);
+  --color-warn:         oklch(60%   0.14   80);  /* ghost row */
+
+  --color-focus:        oklch(62%   0.18  55);  /* focus ring (matches accent) */
+  --color-overlay:      oklch(20%   0.01   70 / 55%); /* modal scrim */
+
+  /* ---- Spacing (4pt scale) ---- */
+  --space-3xs: 0.125rem;  /*  2px */
+  --space-2xs: 0.25rem;   /*  4px */
+  --space-xs:  0.5rem;    /*  8px */
+  --space-sm:  0.75rem;   /* 12px */
+  --space-md:  1rem;      /* 16px */
+  --space-lg:  1.5rem;    /* 24px */
+  --space-xl:  2rem;      /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+
+  /* ---- Type scale ---- */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-md:   1rem;       /* 16px */
+  --text-lg:   1.25rem;    /* 20px */
+  --text-xl:   1.5rem;     /* 24px */
+  --text-2xl:  2rem;       /* 32px */
+  --leading-tight: 1.25;
+  --leading-body:  1.6;
+  --leading-test:  2;
+
+  /* ---- Radius ---- */
+  --radius-xs: 0.25rem;    /*  4px */
+  --radius-sm: 0.5rem;     /*  8px */
+  --radius-md: 0.75rem;    /* 12px */
+  --radius-lg: 1rem;       /* 16px */
+  --radius-full: 999px;
+
+  /* ---- Shadows ---- */
+  --shadow-soft: 0 1px 2px oklch(20% 0.01 70 / 8%), 0 4px 16px -8px oklch(20% 0.01 70 / 18%);
+  --shadow-lift: 0 2px 4px oklch(20% 0.01 70 / 10%), 0 16px 40px -16px oklch(20% 0.01 70 / 28%);
+  --shadow-modal: 0 24px 64px -16px oklch(20% 0.01 70 / 40%);
+
+  /* ---- Layout ---- */
+  --container: 72rem;      /* 1152px */
+  --header-h: 4rem;        /* 64px */
+
+  /* ---- Fonts ---- */
+  --font-sans:   'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:   'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-arabic: 'Noto Naskh Arabic', 'Amiri', 'Segoe UI', serif;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 350ms;
+
+  /* ---- Elevation ---- */
+  --z-header: 50;
+  --z-modal: 100;
+  --z-toast: 200;
+  --z-caret: 5;
+}
+
+/* ---- Dark theme (system only; overridden by [data-theme] below) ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-paper:        oklch(22%   0.012  70); /* warm charcoal #12100E */
+    --color-paper-2:      oklch(27%   0.014  70);
+    --color-paper-3:      oklch(32%   0.016  70);
+    --color-ink:          oklch(93%   0.010  90); /* cream #F5F0E8 */
+    --color-ink-2:        oklch(78%   0.012  90);
+    --color-muted:        oklch(68%   0.012  70);
+    --color-rule:         oklch(34%   0.014  70);
+    --color-rule-2:       oklch(44%   0.016  70);
+
+    --color-accent:       oklch(70%   0.16  55); /* ember orange #FF7A1A */
+    --color-accent-hover: oklch(74%   0.15  55);
+    --color-accent-pressed: oklch(65% 0.16  55);
+    --color-accent-ink:   oklch(22%   0.020  70);
+    --color-accent-soft:  oklch(30%   0.06  55);
+
+    --color-ok:           oklch(76%   0.14  155);
+    --color-ok-soft:      oklch(28%   0.05  155);
+    --color-err:          oklch(70%   0.18   25);
+    --color-err-soft:     oklch(30%   0.06   25);
+    --color-warn:         oklch(78%   0.14   80); /* ghost row */
+
+    --color-focus:        oklch(70%   0.16  55);
+    --color-overlay:      oklch(0%    0     0   / 65%);
+
+    --shadow-soft: 0 1px 2px oklch(0% 0 0 / 40%), 0 4px 16px -8px oklch(0% 0 0 / 55%);
+    --shadow-lift: 0 2px 4px oklch(0% 0 0 / 45%), 0 16px 40px -16px oklch(0% 0 0 / 65%);
+    --shadow-modal: 0 24px 64px -16px oklch(0% 0 0 / 75%);
+  }
+}
+
+/* ---- Manual theme overrides: [data-theme] wins over the media query
+   (higher specificity: :root + attribute beats bare :root in @media). ---- */
+:root[data-theme="ember"],
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-paper:        oklch(22%   0.012  70);
+  --color-paper-2:      oklch(27%   0.014  70);
+  --color-paper-3:      oklch(32%   0.016  70);
+  --color-ink:          oklch(93%   0.010  90);
+  --color-ink-2:        oklch(78%   0.012  90);
+  --color-muted:        oklch(68%   0.012  70);
+  --color-rule:         oklch(34%   0.014  70);
+  --color-rule-2:       oklch(44%   0.016  70);
+
+  --color-accent:       oklch(70%   0.16  55);
+  --color-accent-hover: oklch(74%   0.15  55);
+  --color-accent-pressed: oklch(65% 0.16  55);
+  --color-accent-ink:   oklch(22%   0.020  70);
+  --color-accent-soft:  oklch(30%   0.06  55);
+
+  --color-ok:           oklch(76%   0.14  155);
+  --color-ok-soft:      oklch(28%   0.05  155);
+  --color-err:          oklch(70%   0.18   25);
+  --color-err-soft:     oklch(30%   0.06   25);
+  --color-warn:         oklch(78%   0.14   80);
+
+  --color-focus:        oklch(70%   0.16  55);
+  --color-overlay:      oklch(0%    0     0   / 65%);
+
+  --shadow-soft: 0 1px 2px oklch(0% 0 0 / 40%), 0 4px 16px -8px oklch(0% 0 0 / 55%);
+  --shadow-lift: 0 2px 4px oklch(0% 0 0 / 45%), 0 16px 40px -16px oklch(0% 0 0 / 65%);
+  --shadow-modal: 0 24px 64px -16px oklch(0% 0 0 / 75%);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-paper:        oklch(99%   0.004  95);
+  --color-paper-2:      oklch(96%   0.006  95);
+  --color-paper-3:      oklch(92%   0.008  95);
+  --color-ink:          oklch(24%   0.015  70);
+  --color-ink-2:        oklch(42%   0.015  70);
+  --color-muted:        oklch(55%   0.014  70);
+  --color-rule:         oklch(88%   0.008  95);
+  --color-rule-2:       oklch(78%   0.010  95);
+
+  --color-accent:       oklch(62%   0.18  55);
+  --color-accent-hover: oklch(66%   0.18  55);
+  --color-accent-pressed: oklch(57% 0.18  55);
+  --color-accent-ink:   oklch(99%   0.004  95);
+  --color-accent-soft:  oklch(93%   0.05  55);
+
+  --color-ok:           oklch(60%   0.15  155);
+  --color-ok-soft:      oklch(93%   0.04  155);
+  --color-err:          oklch(58%   0.19   25);
+  --color-err-soft:     oklch(93%   0.04   25);
+  --color-warn:         oklch(60%   0.14   80);
+
+  --color-focus:        oklch(62%   0.18  55);
+  --color-overlay:      oklch(20%   0.01   70 / 55%);
+
+  --shadow-soft: 0 1px 2px oklch(20% 0.01 70 / 8%), 0 4px 16px -8px oklch(20% 0.01 70 / 18%);
+  --shadow-lift: 0 2px 4px oklch(20% 0.01 70 / 10%), 0 16px 40px -16px oklch(20% 0.01 70 / 28%);
+  --shadow-modal: 0 24px 64px -16px oklch(20% 0.01 70 / 40%);
+}
+
+/* ---- RTL readiness: swap the default sans stack to the Arabic
+   stack when the document direction is right-to-left. All layout
+   in app/app.css uses logical properties, so no directional
+   token flips are needed here. ---- */
+[dir="rtl"] {
+  --font-sans: var(--font-arabic);
+}

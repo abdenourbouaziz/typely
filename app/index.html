@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Typely — a fast, offline typing speed test in English, French and Arabic. Track WPM, accuracy, history and race against bots.">
+  <title>Typely — Typing Speed Test</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B1812'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='18' font-weight='bold' fill='%23FBF4E6' text-anchor='middle'%3ET%3C/text%3E%3Crect x='7' y='25' width='10' height='2' rx='1' fill='%23FF7A1A'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html" aria-label="Typely landing">
+        <span class="logo-mark">T</span>
+        <span class="logo-word">Typely</span>
+        <span class="ver-tag">V2 · PAPER</span>
+      </a>
+      <a class="back-link" href="../index.html">← <span>Back to landing</span></a>
+
+      <nav class="tabs" aria-label="Typely sections">
+        <button type="button" class="tab is-active" data-tab="test" aria-controls="panel-test" aria-selected="true" data-i18n="nav.test">Test</button>
+        <button type="button" class="tab" data-tab="history" aria-controls="panel-history" aria-selected="false" data-i18n="nav.history">History</button>
+        <button type="button" class="tab" data-tab="custom" aria-controls="panel-custom" aria-selected="false" data-i18n="nav.custom">Custom</button>
+        <button type="button" class="tab" data-tab="compete" aria-controls="panel-compete" aria-selected="false" data-i18n="nav.compete">Compete</button>
+      </nav>
+
+      <div class="header-controls">
+        <label class="visually-hidden" for="sel-lang-header" data-i18n="label.language">Language</label>
+        <select id="sel-lang-header" class="select" aria-label="Interface language">
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+          <option value="ar">AR</option>
+        </select>
+        <button type="button" id="kb-toggle" aria-expanded="true" aria-controls="virtual-keyboard" data-i18n="keyboard.toggle" aria-label="Toggle virtual keyboard">⌨</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <!-- ================= TEST PANEL ================= -->
+    <section id="panel-test" aria-labelledby="heading-test">
+      <p class="eyebrow">★ test room</p>
+      <h1 id="heading-test" data-i18n="test.title">Typing speed test</h1>
+
+      <div class="controls" role="group" aria-label="Test settings">
+        <div class="control">
+          <label for="sel-lang" data-i18n="label.language">Language</label>
+          <select id="sel-lang" class="select">
+            <option value="en" data-i18n="lang.en">English</option>
+            <option value="fr" data-i18n="lang.fr">French</option>
+            <option value="ar" data-i18n="lang.ar">Arabic</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="sel-diff" data-i18n="label.difficulty">Difficulty</label>
+          <select id="sel-diff" class="select">
+            <option value="easy" data-i18n="diff.easy">Easy</option>
+            <option value="medium" data-i18n="diff.medium">Medium</option>
+            <option value="hard" data-i18n="diff.hard">Hard</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="sel-mode" data-i18n="label.mode">Mode</label>
+          <select id="sel-mode" class="select">
+            <option value="time15" data-i18n="mode.time15">15 seconds</option>
+            <option value="time30" data-i18n="mode.time30">30 seconds</option>
+            <option value="time60" data-i18n="mode.time60">60 seconds</option>
+            <option value="time120" data-i18n="mode.time120">120 seconds</option>
+            <option value="words25" data-i18n="mode.words25">25 words</option>
+            <option value="words50" data-i18n="mode.words50">50 words</option>
+          </select>
+        </div>
+        <div class="control control-action">
+          <button type="button" id="new-text" class="btn btn-primary" data-i18n="test.new">New text</button>
+        </div>
+      </div>
+
+      <div class="stats" role="status" aria-live="polite" aria-label="Live typing statistics">
+        <div class="stat">
+          <span class="stat-label" data-i18n="stats.wpm">WPM</span>
+          <span class="stat-value" id="stat-wpm">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label" data-i18n="stats.acc">Accuracy</span>
+          <span class="stat-value" id="stat-acc">100%</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label" data-i18n="stats.time">Time</span>
+          <span class="stat-value" id="stat-time">0s</span>
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-bar" aria-hidden="true"><span class="traffic"><i></i><i></i><i></i></span><span class="t">typely · practice card</span><span class="live">● live</span></div>
+        <div id="text-display" class="text-display" tabindex="0" role="textbox" aria-label="Text to type" aria-readonly="true" lang="en"></div>
+        <!-- Hidden input captures physical keystrokes on desktop; the visible textarea below is the mobile fallback. -->
+        <input type="text" id="hidden-input" class="hidden-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Typing input (hidden)" data-i18n-aria-label="test.hiddenInput">
+        <textarea id="typing-input" class="typing-input" rows="3" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="test.inputPlaceholder" placeholder="Start typing here…"></textarea>
+      </div>
+
+      <div id="results-modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="results-title">
+        <div class="modal-card">
+          <h2 id="results-title" data-i18n="results.title">Results</h2>
+          <dl class="results-grid">
+            <div class="result">
+              <dt data-i18n="stats.wpm">WPM</dt>
+              <dd id="res-wpm">0</dd>
+            </div>
+            <div class="result">
+              <dt data-i18n="stats.acc">Accuracy</dt>
+              <dd id="res-acc">0%</dd>
+            </div>
+            <div class="result">
+              <dt data-i18n="results.consistency">Consistency</dt>
+              <dd id="res-consistency">0%</dd>
+            </div>
+            <div class="result">
+              <dt data-i18n="results.chars">Characters</dt>
+              <dd id="res-chars">0/0/0/0</dd>
+            </div>
+          </dl>
+          <div class="modal-actions">
+            <button type="button" id="btn-retry" class="btn btn-primary" data-i18n="results.retry">Retry</button>
+            <button type="button" id="btn-new" class="btn btn-secondary" data-i18n="test.new">New text</button>
+            <button type="button" id="btn-modal-close" class="btn btn-ghost" data-i18n="results.close">Close</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HISTORY PANEL ================= -->
+    <section id="panel-history" hidden aria-labelledby="heading-history">
+      <h2 id="heading-history" data-i18n="history.title">History</h2>
+      <div id="history-stats" class="history-stats" aria-live="polite"></div>
+      <figure class="graph-wrap">
+        <figcaption data-i18n="history.graph">WPM over tests</figcaption>
+        <svg id="graph-wpm" viewBox="0 0 600 200" role="img" aria-label="WPM over tests" data-i18n-aria-label="history.graph"></svg>
+      </figure>
+      <ul id="history-list" class="history-list"></ul>
+      <div class="row-actions">
+        <button type="button" id="btn-history-clear" class="btn btn-secondary" data-i18n="history.clear">Clear history</button>
+        <button type="button" id="btn-history-export" class="btn btn-secondary" data-i18n="history.export">Export CSV</button>
+      </div>
+    </section>
+
+    <!-- ================= CUSTOM PANEL ================= -->
+    <section id="panel-custom" hidden aria-labelledby="heading-custom">
+      <h2 id="heading-custom" data-i18n="custom.title">Custom tests</h2>
+      <label class="control-block" for="custom-text">
+        <span data-i18n="custom.label">Paste or write your own text (50–2000 characters)</span>
+        <textarea id="custom-text" class="typing-input" rows="6" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="custom.placeholder" placeholder="Paste your text here…"></textarea>
+      </label>
+      <label class="control-block" for="custom-file">
+        <span data-i18n="custom.file">Or import a .txt file</span>
+        <input type="file" id="custom-file" accept=".txt,text/plain">
+      </label>
+      <div class="row-actions">
+        <button type="button" id="btn-custom-save" class="btn btn-primary" data-i18n="custom.save">Save</button>
+        <button type="button" id="btn-custom-use" class="btn btn-secondary" data-i18n="custom.use">Use for test</button>
+        <button type="button" id="btn-custom-share" class="btn btn-secondary" data-i18n="custom.share">Share link</button>
+      </div>
+      <ul id="custom-list" class="custom-list"></ul>
+    </section>
+
+    <!-- ================= COMPETE PANEL ================= -->
+    <section id="panel-compete" hidden aria-labelledby="heading-compete">
+      <h2 id="heading-compete" data-i18n="compete.title">Compete</h2>
+      <p class="muted" data-i18n="compete.note">Race against simulated bots or your own ghost. Real multiplayer is planned for later.</p>
+      <div id="race-countdown" class="race-countdown" aria-live="polite"></div>
+      <div id="race-bars" class="race-bars" aria-live="polite"></div>
+      <div class="row-actions">
+        <button type="button" id="btn-race-start" class="btn btn-primary" data-i18n="compete.start">Start race</button>
+        <button type="button" id="btn-ghost" class="btn btn-secondary" data-i18n="compete.ghost">Race my ghost</button>
+      </div>
+      <h3 data-i18n="compete.leaderboard">Leaderboard</h3>
+      <div class="table-wrap">
+        <table id="leaderboard">
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="compete.rank">#</th>
+              <th scope="col" data-i18n="compete.name">Name</th>
+              <th scope="col" data-i18n="stats.wpm">WPM</th>
+              <th scope="col" data-i18n="stats.acc">Accuracy</th>
+              <th scope="col" data-i18n="compete.date">Date</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p data-i18n="footer.note">Typely — offline typing test. Your results never leave this browser.</p>
+      <nav><a href="../index.html">Landing</a></nav>
+    </div>
+  </footer>
+
+  <!-- Virtual keyboard is rendered here by ../js/keyboard.js (QWERTY / AZERTY / Arabic). -->
+  <div id="virtual-keyboard" class="keyboard" aria-hidden="false"></div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="../js/texts.js"></script>
+  <script src="../js/engine.js"></script>
+  <script src="../js/keyboard.js"></script>
+  <script src="../js/history.js"></script>
+  <script src="../js/custom.js"></script>
+  <script src="../js/competition.js"></script>
+  <script>document.addEventListener('DOMContentLoaded',function(){try{document.documentElement.dataset.theme='light';}catch(_){}});</script>
+</body>
+</html>

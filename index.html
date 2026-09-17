@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Typely — the friendly offline typing test. English, French and Arabic. Playful, private, free.">
+<title>Typely — How fast are your fingers, really?</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23181814'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='18' font-weight='bold' fill='%23FFF6E9' text-anchor='middle'%3ET%3C/text%3E%3Crect x='7' y='25' width='10' height='2' rx='1' fill='%23FF7A1A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#FBF4E6;color:#1B1812;font-family:var(--font-sans);line-height:1.6;overflow-x:clip;min-block-size:100dvb;-webkit-font-smoothing:antialiased}
+::selection{background:#FF7A1A;color:#fff}
+.wrap{inline-size:min(100% - 2rem,74rem);margin-inline:auto}
+:focus-visible{outline:3px solid #B35400;outline-offset:2px;border-radius:6px}
+.skip{position:absolute;inset-block-start:-4rem;inset-inline-start:1rem;z-index:99;background:#1B1812;color:#FBF4E6;padding:.5rem 1rem;border-radius:.6rem;font-weight:700;text-decoration:none}
+.skip:focus{inset-block-start:.75rem}
+.serif{font-family:Georgia,'Times New Roman',Charter,serif}
+.mono{font-family:var(--font-mono)}
+
+/* announcement */
+.announce{background:#1B1812;color:#FBF4E6;font-size:.85rem;text-align:center;padding:.6rem 1rem}
+.announce a{color:#FFB26B;font-weight:700;text-decoration:none;border-block-end:2px solid #FF7A1A}
+.announce a:hover{color:#fff}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:#FBF4E6;border-block-end:2.5px solid #1B1812}
+.nav-inner{display:flex;align-items:center;gap:1rem;min-block-size:4.2rem;padding-block:.55rem}
+.brand{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:800;font-size:1.25rem;letter-spacing:-.02em;color:#1B1812}
+.brand-mark{inline-size:34px;block-size:34px;border-radius:9px;background:#1B1812;color:#FBF4E6;display:grid;place-items:center;font-family:var(--font-mono);font-size:1.1rem;border:2.5px solid #1B1812;position:relative}
+.brand-mark::after{content:"";position:absolute;left:7px;bottom:6px;inline-size:12px;block-size:2.5px;background:#FF7A1A;border-radius:2px}
+.nav-links{display:flex;gap:.2rem;margin-inline-start:auto}
+.nav-links a{text-decoration:none;color:#1B1812;font-weight:600;font-size:.93rem;padding:.55rem .95rem;border-radius:999px;border:2px solid transparent}
+.nav-links a:hover{border-color:#1B1812;background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:inherit;font-weight:800;text-decoration:none;cursor:pointer;border-radius:.8rem;border:2.5px solid #1B1812;padding:.75rem 1.3rem;min-block-size:44px;transition:transform .12s ease,box-shadow .12s ease}
+.btn-dark{background:#1B1812;color:#FBF4E6;box-shadow:4px 4px 0 #FF7A1A}
+.btn-dark:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #FF7A1A}
+.btn-paper{background:#fff;color:#1B1812;box-shadow:4px 4px 0 #1B1812}
+.btn-paper:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #1B1812}
+.btn-orange{background:#FF7A1A;color:#1B1812;box-shadow:4px 4px 0 #1B1812}
+.btn-orange:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #1B1812}
+@media(max-width:56rem){.nav-links{display:none}}
+@media(max-width:40rem){.nav .btn-paper{display:none}.nav-inner{gap:.6rem}}
+
+/* hero */
+.hero{padding-block:3rem 2rem;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}
+@media(max-width:62rem){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:2.5px solid #1B1812;border-radius:999px;padding:.4rem .95rem;font-family:var(--font-mono);font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:3px 3px 0 #1B1812}
+.eyebrow i{inline-size:9px;block-size:9px;border-radius:50%;background:#2E9E5B;border:2px solid #1B1812}
+h1{font-family:Georgia,Charter,serif;font-size:clamp(2.6rem,5.4vw,4.3rem);line-height:1.02;letter-spacing:-.02em;margin:1.1rem 0 1rem;font-weight:700;text-wrap:balance}
+h1 .hl{position:relative;white-space:nowrap}
+h1 .hl svg{position:absolute;left:-2%;bottom:-.12em;inline-size:104%;block-size:.32em}
+.lede{font-size:1.12rem;color:#4A4438;max-inline-size:33rem;margin:0 0 1.4rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-block-end:1.2rem}
+.proof{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;font-size:.9rem;color:#4A4438}
+.proof b{color:#1B1812}
+.stickers{display:flex;gap:.7rem;margin-block-start:1.3rem;flex-wrap:wrap}
+.sticker{font-family:var(--font-mono);font-weight:700;font-size:.82rem;border:2.5px solid #1B1812;border-radius:.7rem;padding:.5rem .85rem;background:#fff;box-shadow:3px 3px 0 #1B1812;display:inline-flex;gap:.45rem;align-items:center}
+.sticker:nth-child(1){transform:rotate(-3deg);background:#FFE1C2}
+.sticker:nth-child(2){transform:rotate(2deg);background:#DFF2E3}
+.sticker:nth-child(3){transform:rotate(-1.5deg);background:#fff}
+
+/* paper demo card */
+.paper{background:#FFFDF6;border:2.5px solid #1B1812;border-radius:1.2rem;box-shadow:8px 8px 0 #1B1812;overflow:visible;position:relative;margin-block-start:1rem}
+.paper-clip{overflow:hidden;border-radius:1rem}
+.paper::before{content:"";position:absolute;top:0;bottom:0;inset-inline-start:3.2rem;inline-size:2px;background:#F3B1A5;opacity:.7;pointer-events:none}
+.paper-bar{display:flex;align-items:center;gap:.6rem;padding:.85rem 1.2rem;border-block-end:2.5px solid #1B1812;background:#fff;border-radius:1rem 1rem 0 0}
+.paper-bar .holes{display:flex;gap:.4rem}
+.paper-bar .holes i{inline-size:11px;block-size:11px;border-radius:50%;border:2.5px solid #1B1812;background:#FBF4E6}
+.paper-title{font-family:var(--font-mono);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.score-row{display:grid;grid-template-columns:repeat(3,1fr);border-block-end:2px dashed #C9BFA9}
+.score-row div{padding:.8rem 1.2rem .7rem;padding-inline-start:4.2rem}
+.score-row div+div{border-inline-start:2px dashed #C9BFA9}
+.score-row span{font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.1em;color:#8A8172;text-transform:uppercase}
+.score-row strong{display:block;font-family:var(--font-mono);font-size:1.7rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+#v2-text{font-family:var(--font-mono);font-size:1.14rem;line-height:2.1;padding:1.2rem 1.2rem .3rem;padding-inline-start:4.2rem;min-block-size:10rem;cursor:text}
+#v2-text .pending{color:#A79D88}
+#v2-text .correct{color:#1B1812}
+#v2-text .incorrect{color:#C62F2F;background:#FBDCDC;border-radius:4px}
+#v2-text .current{position:relative}
+#v2-text .current::before{content:"";position:absolute;inset-block:.15em;inset-inline-start:-2px;inline-size:3px;background:#FF7A1A;border-radius:2px;animation:blink 1.1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:0}}
+.paper-foot{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;padding:1rem 1.2rem 1.2rem;padding-inline-start:4.2rem}
+.paper-foot small{color:#8A8172}
+.tape{position:absolute;top:-16px;inset-inline-start:50%;transform:translateX(-50%) rotate(-2deg);background:#FFE1A8;border:2px solid #1B181244;padding:.15rem 1.4rem;font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;border-radius:2px;z-index:2;white-space:nowrap;box-shadow:2px 2px 0 #1B181233}
+.link-btn{background:none;border:0;font:inherit;font-weight:800;font-size:.88rem;cursor:pointer;text-decoration:underline;text-decoration-color:#FF7A1A;text-decoration-thickness:3px;text-underline-offset:3px;color:#1B1812}
+
+/* marquee */
+.marquee{background:#1B1812;color:#FBF4E6;border-block:2.5px solid #1B1812;overflow:hidden;white-space:nowrap;margin-block:2.2rem 0;transform:rotate(-.6deg) scale(1.01)}
+.marquee-track{display:inline-flex;gap:0;padding:.75rem 0;font-family:var(--font-mono);font-weight:700;font-size:.9rem;letter-spacing:.04em;animation:tick 26s linear infinite}
+.marquee-track span{padding:0 1.4rem}
+.marquee-track b{color:#FF7A1A}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* sections */
+section.block{padding-block:3.2rem}
+.kicker{display:inline-block;font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:#1B1812;color:#FBF4E6;border-radius:.5rem;padding:.35rem .8rem;margin:0 0 .9rem}
+.kicker.orange{background:#FF7A1A;color:#1B1812;border:2.5px solid #1B1812;box-shadow:3px 3px 0 #1B1812}
+h2{font-family:Georgia,serif;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 .7rem;text-wrap:balance}
+.sub{color:#4A4438;max-inline-size:42rem;margin:0 0 2rem;font-size:1.06rem}
+
+/* bento */
+.bento{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem}
+.bento2{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-block-start:1rem}
+@media(max-width:56rem){.bento,.bento2{grid-template-columns:1fr}}
+.card{background:#FFFDF6;border:2.5px solid #1B1812;border-radius:1.1rem;padding:1.5rem;box-shadow:5px 5px 0 #1B1812;position:relative;transition:transform .14s ease,box-shadow .14s ease}
+.card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #1B1812}
+.card h3{margin:0 0 .45rem;font-size:1.15rem;letter-spacing:-.01em}
+.card p{margin:0;color:#4A4438;font-size:.95rem}
+.card .n{position:absolute;top:1.1rem;inset-inline-end:1.2rem;font-family:var(--font-mono);font-weight:700;font-size:.75rem;background:#1B1812;color:#FBF4E6;border-radius:999px;padding:.15rem .65rem}
+.keys{display:grid;gap:6px;margin-block-start:1.1rem;max-inline-size:26rem}
+.krow{display:flex;gap:6px;justify-content:center}
+.key{flex:1;border:2px solid #1B1812;border-radius:.5rem;background:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:700;min-block-size:38px;display:grid;place-items:center;box-shadow:2px 2px 0 #1B1812}
+.key.hit{background:#FF7A1A}
+.key.ok{background:#DFF2E3}
+.graph{margin-block-start:1rem;border:2px solid #1B1812;border-radius:.7rem;background:#fff;padding:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-block-start:1rem}
+.chip{font-family:var(--font-mono);font-size:.76rem;font-weight:700;border:2px solid #1B1812;border-radius:999px;padding:.3rem .8rem;background:#fff}
+.chip.fill{background:#1B1812;color:#FBF4E6}
+
+/* menu list */
+.menu{border:2.5px solid #1B1812;border-radius:1.1rem;overflow:hidden;background:#FFFDF6;box-shadow:5px 5px 0 #1B1812}
+.menu-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1.05rem 1.4rem;border-block-end:2px dashed #C9BFA9}
+.menu-row:last-child{border-block-end:0}
+.menu-row b{font-size:1.02rem}
+.menu-row small{display:block;color:#6B6355;font-weight:500}
+.price{font-family:var(--font-mono);font-weight:700;background:#FFE1C2;border:2px solid #1B1812;border-radius:.6rem;padding:.3rem .7rem;white-space:nowrap}
+
+/* languages */
+.langs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:56rem){.langs{grid-template-columns:1fr}}
+.lang{background:#fff;border:2.5px solid #1B1812;border-radius:1.1rem;overflow:hidden;box-shadow:5px 5px 0 #1B1812}
+.lang-top{padding:1rem 1.3rem;border-block-end:2.5px solid #1B1812;display:flex;align-items:center;gap:.8rem;font-weight:800;font-size:1.1rem}
+.big-letter{font-family:Georgia,serif;font-size:1.8rem;line-height:1;inline-size:3rem;block-size:3rem;border-radius:.8rem;display:grid;place-items:center;border:2.5px solid #1B1812;flex:none}
+.lang-body{padding:1.2rem 1.3rem}
+.sample{margin:0 0 .8rem;line-height:1.9;font-size:1.02rem}
+.sample.en{font-family:var(--font-mono)}
+.sample.fr{font-family:Georgia,serif;font-style:italic}
+.sample.ar{font-family:var(--font-arabic);font-size:1.3rem;direction:rtl;text-align:right}
+.lang-meta{font-family:var(--font-mono);font-size:.76rem;color:#6B6355}
+
+/* cta */
+.cta{background:#1B1812;color:#FBF4E6;border:2.5px solid #1B1812;border-radius:1.4rem;box-shadow:8px 8px 0 #FF7A1A;padding:clamp(2rem,5vw,3.5rem);text-align:center;position:relative;overflow:hidden}
+.cta h2{color:#FBF4E6}
+.cta p{color:#CFC5B2;max-inline-size:34rem;margin:0 auto 1.6rem}
+.cta .doodle{font-family:var(--font-mono);color:#FF7A1A;font-weight:700;letter-spacing:.1em;font-size:.78rem}
+footer{border-block-start:2.5px solid #1B1812;padding-block:1.8rem;margin-block-start:3rem;background:#FFFDF6}
+.foot{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;font-size:.9rem;color:#4A4438}
+.foot nav{display:flex;gap:1.1rem;margin-inline-start:auto}
+.foot a{color:#1B1812;font-weight:700;text-decoration:none}.foot a:hover{text-decoration:underline}
+.reveal{opacity:0;transform:translateY(14px) rotate(.2deg);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.marquee-track{animation:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#play">Skip to playable demo</a>
+<div class="announce">100% offline — your results never leave this browser. <a href="app/index.html">Open the app →</a></div>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="app/index.html"><span class="brand-mark">T</span>Typely</a>
+<nav class="nav-links" aria-label="Sections"><a href="#tour">Tour</a><a href="#menu">Modes</a><a href="#languages">Languages</a><a href="#race">Race</a></nav>
+<span style="margin-inline-start:auto"></span>
+<a class="btn btn-paper" style="min-block-size:44px;padding:.6rem 1rem" href="app/index.html">Open app</a>
+<a class="btn btn-dark" style="min-block-size:44px;padding:.6rem 1.1rem" href="#play">Play demo ↓</a>
+</div></header>
+
+<main class="wrap">
+<div class="hero"><div class="hero-grid">
+<div>
+<span class="eyebrow"><i></i>free · offline · EN / FR / AR</span>
+<h1>How fast are your <span class="hl">fingers<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 60 4, 140 4, 197 12" fill="none" stroke="#FF7A1A" stroke-width="7" stroke-linecap="round"/></svg></span>, really?</h1>
+<p class="lede">Typely is the friendly typing test that lives entirely in your browser. Thirty seconds, honest numbers, zero sign-ups — in English, French <em class="serif">et en arabe.</em></p>
+<div class="cta-row"><a class="btn btn-orange" href="app/index.html">Start typing — it's free →</a><a class="btn btn-paper" href="#tour">Take the tour</a></div>
+<div class="proof"><span>★ <b>No account</b></span><span>★ <b>Works offline</b></span><span>★ <b>Kid-safe</b>: nothing uploaded</span></div>
+<div class="stickers"><span class="sticker">⚡ 15s sprint</span><span class="sticker">✓ 98% club</span><span class="sticker">عربي · RTL</span></div>
+</div>
+<div class="paper" id="play">
+<div class="tape">TRY ME — CLICK &amp; TYPE</div>
+<div class="paper-bar"><span class="holes"><i></i><i></i><i></i></span><span class="paper-title">typely · practice card nº 07</span><span class="mono" style="margin-inline-start:auto;font-size:.72rem;font-weight:700;color:#2E9E5B">● LIVE</span></div>
+<div class="score-row"><div><span>WPM</span><strong id="v-wpm">0</strong></div><div><span>Accuracy</span><strong id="v-acc">100%</strong></div><div><span>Best</span><strong id="v-best">—</strong></div></div>
+<div id="v2-text" tabindex="0" role="textbox" aria-label="Playable typing demo"></div>
+<input type="text" id="v-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Demo input" style="position:absolute;opacity:0;pointer-events:none;inline-size:1px;block-size:1px">
+<div class="paper-foot"><small>Timer starts on your first key. Mistakes show in <b style="color:#C62F2F">red</b> — backspace to fix.</small><button class="link-btn" id="v-reset" type="button">↻ new card</button></div>
+</div>
+</div></div>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="mq"></div></div>
+
+<section class="block reveal" id="tour">
+<span class="kicker orange">★ the tour</span>
+<h2>Small app, serious craft.</h2>
+<p class="sub">Everything a typing nerd wants, nothing a beginner fears. Six cards from the box:</p>
+<div class="bento">
+<article class="card"><span class="n">01</span><h3>Keys you can feel</h3><p>QWERTY, AZERTY and Arabic layouts rendered live. Wrong keys flash orange, the next key winks at you.</p><div class="keys" aria-hidden="true"><div class="krow"><span class="key">q</span><span class="key">w</span><span class="key hit">e</span><span class="key">r</span><span class="key">t</span><span class="key">y</span></div><div class="krow"><span class="key ok">a</span><span class="key ok">s</span><span class="key ok">d</span><span class="key">f</span><span class="key">g</span></div><div class="krow"><span class="key" style="flex:3">space</span><span class="key">↵</span></div></div></article>
+<article class="card"><span class="n">02</span><h3>Graphs, not vibes</h3><p>Every run lands in local history with a WPM curve. Spot the slump, beat the average.</p><div class="graph"><svg viewBox="0 0 220 70" style="inline-size:100%;block-size:auto;display:block" role="img" aria-label="Sample progress"><polyline points="0,58 25,54 50,56 75,44 100,46 125,34 150,36 175,22 200,24 220,12" fill="none" stroke="#1B1812" stroke-width="3" stroke-linecap="round"/><circle cx="220" cy="12" r="6" fill="#FF7A1A" stroke="#1B1812" stroke-width="2.5"/></svg></div><div class="chips"><span class="chip fill">best 87</span><span class="chip">avg 64</span><span class="chip">last 10 ↗</span></div></article>
+</div>
+<div class="bento2">
+<article class="card"><span class="n">03</span><h3>Bring your own text</h3><p>Paste lyrics, code, a speech — 50 to 2000 chars — or drop a .txt file. Share via link.</p></article>
+<article class="card"><span class="n">04</span><h3>Difficulty with a ladder</h3><p>Easy: sunny words. Medium: Capitals &amp; commas. Hard: numbers, symbols, tongue-twisters.</p></article>
+<article class="card"><span class="n">05</span><h3>Race the bots</h3><p>Eight seeded rivals plus your own ghost. Countdown, live bars, local crown. <a href="#race" style="font-weight:800">See below ↓</a></p></article>
+</div>
+</section>
+
+<section class="block reveal" id="menu">
+<span class="kicker">☰ the menu</span>
+<h2>Pick your race distance.</h2>
+<p class="sub">Like a café menu, but for fingers. All six modes live in the app — this demo runs the house special: 30 seconds.</p>
+<div class="menu">
+<div class="menu-row"><div><b>Espresso — 15 seconds</b><small>pure burst · warm-up &amp; bragging rights</small></div><span class="price">15s</span></div>
+<div class="menu-row"><div><b>House special — 30 seconds</b><small>the baseline everyone compares · demo below</small></div><span class="price">30s ★</span></div>
+<div class="menu-row"><div><b>Long black — 60 / 120 seconds</b><small>endurance · consistency score matters here</small></div><span class="price">60–120s</span></div>
+<div class="menu-row"><div><b>Petit / grand — 25 / 50 words</b><small>finish the distance, clock stops at the last word</small></div><span class="price">25·50w</span></div>
+</div>
+</section>
+
+<section class="block reveal" id="languages">
+<span class="kicker orange">◐ EN · FR · AR</span>
+<h2>Three languages, at home.</h2>
+<p class="sub">Separate text collections per language and level — plus right-to-left layout and Arabic type when you switch.</p>
+<div class="langs">
+<article class="lang"><div class="lang-top"><span class="big-letter" style="background:#FFE1C2">Aa</span>English <span class="mono" style="margin-inline-start:auto;font-size:.72rem;background:#1B1812;color:#fff;border-radius:6px;padding:.25rem .6rem">QWERTY</span></div><div class="lang-body"><p class="sample en">my little dog runs fast in the yard every morning…</p><p class="lang-meta">15 texts · short words → numbers &amp; symbols</p></div></article>
+<article class="lang"><div class="lang-top"><span class="big-letter" style="background:#DFF2E3">Ée</span>Français <span class="mono" style="margin-inline-start:auto;font-size:.72rem;background:#1B1812;color:#fff;border-radius:6px;padding:.25rem .6rem">AZERTY</span></div><div class="lang-body"><p class="sample fr">le petit chat dort près de la fenêtre ouverte…</p><p class="lang-meta">15 textes · accents, cédilles, ponctuation</p></div></article>
+<article class="lang"><div class="lang-top"><span class="big-letter" style="background:#FFE1A8;font-family:var(--font-arabic)">ع</span>العربية <span class="mono" style="margin-inline-start:auto;font-size:.72rem;background:#1B1812;color:#fff;border-radius:6px;padding:.25rem .6rem">عربي</span></div><div class="lang-body"><p class="sample ar">القِطّةُ الصَّغيرةُ تَنامُ بِجانِبِ النّافِذَةِ…</p><p class="lang-meta">١٥ نصًّا · كامل RTL · بدون تباعد أحرف</p></div></article>
+</div>
+</section>
+
+<section class="block reveal" id="race">
+<span class="kicker">⚑ race room</span>
+<h2>Bots that trash-talk in WPM.</h2>
+<p class="sub">Watch a sample race. In the app you are the green bar — first to 100% takes the local crown.</p>
+<div class="card" style="padding:1.6rem">
+<div id="v-race" style="display:grid;gap:.85rem" aria-hidden="true">
+<div style="display:grid;grid-template-columns:8rem 1fr 3.2rem;gap:.8rem;align-items:center"><b>you</b><span style="background:#EFE6D2;border:2px solid #1B1812;border-radius:999px;block-size:.9rem;overflow:hidden;display:block"><span data-r="you" style="display:block;block-size:100%;inline-size:0%;background:#2E9E5B"></span></span><span class="mono" data-w="you" style="font-size:.76rem">0</span></div>
+<div style="display:grid;grid-template-columns:8rem 1fr 3.2rem;gap:.8rem;align-items:center"><b>sahara</b><span style="background:#EFE6D2;border:2px solid #1B1812;border-radius:999px;block-size:.9rem;overflow:hidden;display:block"><span data-r="b1" style="display:block;block-size:100%;inline-size:0%;background:#FF7A1A"></span></span><span class="mono" data-w="b1" style="font-size:.76rem">0</span></div>
+<div style="display:grid;grid-template-columns:8rem 1fr 3.2rem;gap:.8rem;align-items:center"><b>mistral</b><span style="background:#EFE6D2;border:2px solid #1B1812;border-radius:999px;block-size:.9rem;overflow:hidden;display:block"><span data-r="b2" style="display:block;block-size:100%;inline-size:0%;background:#1B1812"></span></span><span class="mono" data-w="b2" style="font-size:.76rem">0</span></div>
+</div>
+<div style="margin-block-start:1.2rem;display:flex;gap:.8rem;flex-wrap:wrap"><a class="btn btn-dark" href="app/index.html">Challenge them →</a><span class="mono" style="align-self:center;font-size:.8rem;color:#6B6355">8 bots · ghost replay · local leaderboard</span></div>
+</div>
+</section>
+
+<section class="block reveal"><div class="cta">
+<p class="doodle">✳ FREE · OFFLINE · NO SIGN-UP ✳</p>
+<h2>Your keyboard misses you.</h2>
+<p>One 30-second run gives you a WPM, an accuracy and a little green dot on your history graph. Come get it.</p>
+<a class="btn btn-orange" style="font-size:1.05rem;padding:1rem 2rem" href="app/index.html">Find my speed →</a>
+<p class="mono" style="margin:1rem 0 0;font-size:.78rem;color:#8A8172">psst — teachers: custom texts make great class drills.</p>
+</div></section>
+</main>
+<footer><div class="wrap foot"><span><b style="color:#1B1812">Typely</b> — the offline typing test. Made for classrooms, cafés &amp; night owls.</span><nav><a href="app/index.html">App</a><a href="#menu">Modes</a><a href="#languages">Languages</a></nav></div></footer>
+<script>
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var items=['15 SECONDS <b>⚡</b>','30 SECONDS <b>★</b>','QWERTY · AZERTY · <b>عربي</b>','WPM + ACCURACY + CONSISTENCY','CUSTOM .TXT <b>✎</b>','8 BOTS + YOUR GHOST <b>⚑</b>','100% OFFLINE <b>◐</b>'];
+var mq=document.getElementById('mq');var h=items.map(function(s){return '<span>'+s+' &nbsp;✳&nbsp;</span>'}).join('');mq.innerHTML=h+h;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+var SENT=['the quick brown fox jumps over the lazy dog near the quiet river','practice a little every day and your fingers will remember the way','le petit chat dort pres de la fenetre ouverte au soleil du matin'];
+var idx=0,pos=0,correct=0,typed=0,started=false,startT=0,timer=null,best=null;
+var el=document.getElementById('v2-text'),w=document.getElementById('v-wpm'),a=document.getElementById('v-acc'),b=document.getElementById('v-best'),inp=document.getElementById('v-input');
+var mark=[];
+function render(){el.innerHTML='';var s=SENT[idx];for(var i=0;i<s.length;i++){var sp=document.createElement('span');sp.className=i<pos?(mark[i]?'correct':'incorrect'):'pending';if(i===pos)sp.classList.add('current');sp.textContent=s[i];el.appendChild(sp)}}
+function stats(){var sec=(Date.now()-startT)/1000,min=sec/60;w.textContent=started&&min>0?Math.round((correct/5)/min):'0';a.textContent=(typed?Math.round(correct/typed*100):100)+'%'}
+function reset(n){if(n!==undefined)idx=n;pos=0;correct=0;typed=0;started=false;mark=[];clearInterval(timer);timer=null;w.textContent='0';a.textContent='100%';b.textContent=best==null?'—':best+' wpm';render()}
+function finish(){clearInterval(timer);timer=null;var v=parseInt(w.textContent,10)||0;if(best==null||v>best){best=v;b.textContent=best+' wpm ★'}}
+el.addEventListener('click',function(){inp.focus({preventScroll:true})});
+inp.addEventListener('beforeinput',function(e){e.preventDefault();var s=SENT[idx];if(e.inputType==='deleteContentBackward'){if(pos>0){pos--;if(mark[pos])correct--;render()}return}var d=e.data;if(!d||d.length!==1)return;if(!started){started=true;startT=Date.now();timer=setInterval(stats,200)}if(pos>=s.length)return;mark[pos]=(d===s[pos]);if(mark[pos])correct++;typed++;pos++;stats();render();if(pos>=s.length)finish()});
+document.getElementById('v-reset').addEventListener('click',function(){reset((idx+1)%SENT.length);inp.focus({preventScroll:true})});
+reset(0);
+// auto demo until first interaction
+var autoT=null;if(!reduce){var p2=0;autoT=setInterval(function(){if(started){clearInterval(autoT);return}if(p2>=SENT[0].length){clearInterval(autoT);setTimeout(function(){if(!started)reset(0)},2000);return}mark[p2]=true;p2++;pos=p2;correct=p2;typed=p2;render()},60);inp.addEventListener('focus',function(){clearInterval(autoT)},{once:true})}
+// race
+var fills={you:0,b1:0,b2:0},sp={you:2.1,b1:1.6,b2:1.35};
+var box=document.getElementById('v-race');
+var rio=new IntersectionObserver(function(es){if(es[0].isIntersecting){rio.disconnect();var iv=setInterval(function(){var done=true;Object.keys(fills).forEach(function(k){if(fills[k]<100){done=false;fills[k]=Math.min(100,fills[k]+sp[k]*(0.7+Math.random()*0.7));var f=box.querySelector('[data-r="'+k+'"]');var lab=box.querySelector('[data-w="'+k+'"]');if(f)f.style.inlineSize=fills[k]+'%';if(lab)lab.textContent=Math.round(fills[k])+'%'}});if(done){clearInterval(iv);setTimeout(function(){Object.keys(fills).forEach(function(k){fills[k]=0;var f=box.querySelector('[data-r="'+k+'"]');if(f)f.style.inlineSize='0%'});rio.observe(box)},2400)}},220)}},{threshold:.4});
+rio.observe(box);
+})();
+</script>
+</body>
+</html>
