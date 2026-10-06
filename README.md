@@ -18,19 +18,6 @@ Typely is a focused typing test and practice app built as a lightweight offline-
 - Simulated racing/competition panel with bot and ghost-style comparison
 - Fully client-side browser app with no backend required
 
-## Project structure
-
-- `index.html` — landing page for the project
-- `app/index.html` — main Typely app interface
-- `app/app.css` — app styles
-- `js/engine.js` — core typing logic and test engine
-- `js/history.js` — session history and chart rendering
-- `js/custom.js` — custom text handling and import/share flow
-- `js/competition.js` — race simulation and leaderboard logic
-- `js/keyboard.js` — virtual keyboard rendering and keyboard behavior
-- `js/texts.js` — language text corpus
-- `tokens.css` — design tokens and shared styling variables
-
 ## Local usage
 
 Because this project is a static web app, you can run it by opening the HTML files directly in a browser, or by serving the folder locally.
@@ -59,24 +46,3 @@ http://localhost:8000
 - It is designed to work offline after load, with no server-side dependencies
 - The app is intentionally lightweight and dependency-free
 
-## License
-
-This project does not currently declare a license in the repository root.
-
-## Contributing
-
-Contributions are welcome. If you want to improve the app:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Open a pull request with a clear summary
-
-## Roadmap ideas
-
-- Daily challenge mode
-- More languages and keyboard layouts
-- Better analytics and trends
-- Real-time multiplayer typing races
-- PWA install support
-- Achievement and progression system
